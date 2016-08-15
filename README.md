@@ -1,8 +1,15 @@
-#Data Science Project Repository
 
-##Read me
+#Read Me
 
-This file provides details about the project status and work done in Data Science by Rajesh Suyal. This is also my fist experience in GitBash and Rstudio, I am learning Rstudio and other tools which are famous for Data Science and Analytics and seek help from goodle.com and stackoverflow to learn this wornderfull technology.
+<center><h2> Data Science Project Repository for Coursera learning </h2></center>
 
-Thank you
 
+Hello everyone this is Rajesh Suyal, I am learning Data Science through Coursera and this is my first interaction with R programming language, I feel very happy to get a chance to learn a very interesting language like R.
+
+  I have been working in SAP Business Objects for more than 10 years and I have learning other programming languages like Java, VB etc.. I really wanted to advance my career in Data Science and Coursera is perfect for me start learning Data Science and R.
+  
+  I would also like to get connected with you all genius people and take help from your knowledge.
+  
+  I will keep on adding my work on R and other Data Science technologies as I move ahead on this journey of learning.
+  
+  Wish you all happy learning as learning never stop. 
