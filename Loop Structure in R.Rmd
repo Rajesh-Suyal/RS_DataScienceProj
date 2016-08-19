@@ -21,7 +21,7 @@ for(i in 1:10) <br />
 }  <br />
 print(i)  <br /><br /><br />
 
-##### Above code could have been written in more easier way and without using for loop also in just one line. This demonstrate the power of Vector in R. <br /><br />
+##### Above code could have been written in more easier way and without using for loop. Also in just one line. This shows the power of Vectors in R. <br /><br />
 
 sqrx_1 <- x ^ 2
 <br />
@@ -31,4 +31,4 @@ sqrx == sqrx_1
 [1] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
 <br /><br />
 
-##### Here because x is a vector have 10 random numbers, we can raise the x with power of 2. What it will do is, it will apply ^2 to each element of vector. Hence we do not have to iterate to each element using a loop. <br />This is power of R.
+##### Here because x is a vector having 10 random numbers, we raise x with power of 2. What this will do is, it will apply ^2 to each element of vector. Hence we do not have to iterate to each element using a loop. <br /> This is power of R and Vectors.
