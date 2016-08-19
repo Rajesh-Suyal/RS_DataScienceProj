@@ -6,7 +6,7 @@ output: html_document
 ---
 
 
-##This page will demonstrate how loops can be avoided in R
+##This page demonstrate how loops can be avoided in R
 
 ###Iterating using FOR loop on the elements of a vector
 
