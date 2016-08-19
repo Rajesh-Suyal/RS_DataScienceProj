@@ -1,0 +1,34 @@
+---
+title: "Loop Structure in R"
+author: "Rajesh Suyal"
+date: "August 19, 2016"
+output: html_document
+---
+
+
+##This page will demonstrate how loops can be avoided in R
+
+###Iterating using FOR loop on the elements of a vector
+
+##### In this example we will use __FOR loop__ to calculate the Square of 10 random nos. Fist we will initialize the numbers for calculation. i.e. create random nos.<br />
+x <- rnorm(10) <br />
+sqrx <- 0  * this is empty variable which will hold the result i.e. square of x. <br />
+<br />
+for(i in 1:10) <br />
+{  <br />
+    sqrx[i] <- x[i] * x[i]  <br />
+    print(sqrx[i])  <br />
+}  <br />
+print(i)  <br /><br /><br />
+
+##### Above code could have been written in more easier way and without using for loop also in just one line. This demonstrate the power of Vector in R. <br /><br />
+
+sqrx_1 <- x ^ 2
+<br />
+
+sqrx == sqrx_1
+<br />
+[1] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+<br /><br />
+
+##### Here because x is a vector have 10 random numbers, we can raise the x with power of 2. What it will do is, it will apply ^2 to each element of vector. Hence we do not have to iterate to each element using a loop. <br />This is power of R.
