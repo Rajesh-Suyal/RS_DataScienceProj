@@ -1,0 +1,117 @@
+<%@ page import="java.util.*, 
+com.crystaldecisions.sdk.exception.SDKException,
+com.crystaldecisions.sdk.occa.infostore.*,
+com.crystaldecisions.sdk.framework.*,
+com.crystaldecisions.sdk.plugin.desktop.report.CeReportRightID,
+com.crystaldecisions.sdk.plugin.desktop.user.*,
+com.crystaldecisions.sdk.plugin.desktop.usergroup.*,
+java.sql.*"%>
+<%@ page import="org.apache.poi.hssf.usermodel.HSSFSheet"%>
+<%@ page import="org.apache.poi.hssf.usermodel.HSSFWorkbook"%>
+<%@ page import="org.apache.poi.hssf.usermodel.HSSFCell"%>
+<%@ page import="org.apache.poi.hssf.usermodel.HSSFRow"%>
+<%@ page import="java.io.*" %>
+<%@ page import="org.apache.poi.hssf.usermodel.HSSFPrintSetup"%>
+
+<%
+
+
+
+    String userName = "Administrator";
+    String password = "";
+    String cmsName ="bo001poster:6400";
+    String cmsAuthType ="secEnterprise";
+
+    IInfoObject usergroup;
+    IInfoObject folder;
+    IEffectiveRight eRight;
+    String rights;
+
+    
+    HSSFWorkbook wb = new HSSFWorkbook();
+    HSSFSheet sheet = wb.createSheet("new sheet");
+    HSSFRow rowhead = sheet.createRow((short)0);
+    rowhead.createCell((short) 0).setCellValue("User Group");
+    rowhead.createCell((short) 1).setCellValue("Folder Name");
+    rowhead.createCell((short) 2).setCellValue("Rights");
+        
+    int index=1;
+    
+    try
+    {
+        IEnterpriseSession  es = CrystalEnterprise.getSessionMgr().logon( userName, password, cmsName, cmsAuthType);
+        //session.setAttribute( "enterpriseSession", es );
+        IInfoStore iStore = (IInfoStore)es.getService("", "InfoStore");
+
+    //Code to query for the user to test access rights.
+
+        String query = "SELECT  * FROM CI_SYSTEMOBJECTS WHERE  SI_kind='UserGroup'";
+        IInfoObjects infoobjects = iStore.query(query);
+        String folderQuery = "SELECT  * FROM CI_INFOOBJECTS WHERE SI_Kind='Folder'";
+        IInfoObjects folders = iStore.query(folderQuery);
+     //    out.print(infoobjects.size() + "<br>" + folders.size());
+        for(int i=0;i<infoobjects.size();i++)
+        {
+            for(int j=0;j<folders.size();j++)
+            {
+                usergroup = (IInfoObject) infoobjects.get(i);
+                String name=usergroup.getTitle();
+                out.println("<b>User Group :</b>" +name);
+                out.println("<br>");
+                folder = (IInfoObject)folders.get(j);
+                String folderName=folder.getTitle();
+                out.println("<b>Folder Name :</b>" +folder.getTitle());
+                out.println("<br>");
+                
+                ISecurityInfo2 folderSecInfo = folder.getSecurityInfo2();
+                IEffectivePrincipals ePrincipals=folderSecInfo.getEffectivePrincipals();
+                IEffectivePrincipal ePrincipal=ePrincipals.get(usergroup.getID());
+                IEffectiveRights eRights=ePrincipal.getRights();
+                
+                
+                Iterator it=eRights.iterator();
+                out.println("<b>Rights :</b><br>");
+                if((!it.hasNext()))
+                {
+                    out.println("No Rights on this folder!!!!<br>");
+                }
+                else
+                {
+                
+                HSSFRow row = sheet.createRow((short)index);
+                row.createCell((short) 0).setCellValue(name);
+                row.createCell((short) 1).setCellValue(folderName);
+                    while(it.hasNext())
+                    {
+                        eRight=(IEffectiveRight)it.next();
+                        if(eRight.isGranted())
+                        {
+                        rights=eRight.toString();
+                        
+                        out.print(rights);
+                        out.println("<br>");
+                        HSSFRow row1 = sheet.createRow((short)index);
+                        row1.createCell((short) 2).setCellValue(rights);
+                        index++;
+                        }
+                    }
+                }
+            }
+            out.println("<br>");
+            out.println("****");
+            out.println("<br>");
+        }
+    }
+    catch(SDKException e)
+    {
+       out.println(e.getMessage());
+    }
+    finally
+    {
+        FileOutputStream fileOut = new FileOutputStream("D:\\Rights.xls");
+        wb.write(fileOut);
+        fileOut.close(); 
+        out.println(" Excel file created successfully");
+    
+    }
+%>
