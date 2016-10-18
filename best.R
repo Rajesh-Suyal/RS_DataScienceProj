@@ -3,16 +3,9 @@
 
 best <- function(state, outcome) {
   
-  g_Wd <- getwd()
-  
   ## User prompt for source file location
-  setwd(readline(prompt = "Enter the source file path:- ")) 
-  
   ## Read outcome data
-  data.Outcome <- read.csv("outcome-of-care-measures.csv", colClasses = "character")
-  
-  setwd(g_Wd)
-  
+  data.Outcome <- read.csv(file.choose(), colClasses = "character")
   
   ## setting defaults for function arguments and flags.
   valid.Outcome <- c("heart attack", "heart failure", "pneumonia")
